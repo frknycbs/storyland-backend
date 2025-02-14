@@ -1,0 +1,4 @@
+2025-02-14T21:03:35.066Z [INFO]: [STORYLAND-MAIN] Started, connecting to mongoDB...
+2025-02-14T21:03:35.115Z [INFO]: MongoDB connected
+2025-02-14T21:03:35.115Z [INFO]: [STORYLAND-MAIN] Connected to mongoDB, Server running on port 3000
+2025-02-14T21:03:35.115Z [WARN]: asdwarnnn213

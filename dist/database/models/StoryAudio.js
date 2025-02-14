@@ -34,10 +34,9 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const StorySchema = new mongoose_1.Schema({
-    text: { type: String, required: true },
-    name: { type: String, required: true },
-    category: { type: String, required: true }
+const StoryAudioSchema = new mongoose_1.Schema({
+    file: { type: Buffer, required: true },
+    storyID: { type: String, required: true }
 });
-const StoryModel = mongoose_1.default.model('Story', StorySchema);
-exports.default = StoryModel;
+const StoryAudioModel = mongoose_1.default.model('StoryAudio', StoryAudioSchema);
+exports.default = StoryAudioModel;

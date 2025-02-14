@@ -1,16 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { Story } from '../../types';
 
-interface IStory extends Document {
-  text: string;
-  name: string;
-  category: string;
-}
-
-const StorySchema = new Schema<IStory>({
-  text: { type: String, required: true },
-  name: { type: String, required: true },
-  category: { type: String, required: true }
+const StorySchema = new Schema<Story>({
+    text: { type: String, required: true },
+    name: { type: String, required: true },
+    category: { type: String, required: true }
 });
 
-const Story = mongoose.model<IStory>('Story', StorySchema);
-export default Story;
+const StoryModel = mongoose.model<Story>('Story', StorySchema);
+export default StoryModel;
