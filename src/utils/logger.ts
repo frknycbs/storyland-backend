@@ -7,7 +7,7 @@ const logFormat = winston.format.printf(({ level, message, timestamp }) => {
 });
 
 // Define log file paths
-const logDirectory = path.join(__dirname, '../logs'); // Ensure logs directory exists
+const logDirectory = path.join(__dirname, '../../logs'); // Ensure logs directory exists
 const mainLogPath = path.join(logDirectory, 'main.log');
 
 

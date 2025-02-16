@@ -10,7 +10,7 @@ const logFormat = winston_1.default.format.printf(({ level, message, timestamp }
     return `${timestamp} [${level.toUpperCase()}]: ${message}`;
 });
 // Define log file paths
-const logDirectory = path_1.default.join(__dirname, '../logs'); // Ensure logs directory exists
+const logDirectory = path_1.default.join(__dirname, '../../logs'); // Ensure logs directory exists
 const mainLogPath = path_1.default.join(logDirectory, 'main.log');
 // Create Winston logger
 const logger = winston_1.default.createLogger({
