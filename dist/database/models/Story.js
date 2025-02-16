@@ -35,9 +35,14 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const StorySchema = new mongoose_1.Schema({
+    _id: { type: mongoose_1.Types.ObjectId, auto: true }, // Auto-generate ObjectId
     text: { type: String, required: true },
+    title: { type: String, required: true },
     name: { type: String, required: true },
-    category: { type: String, required: true }
-});
+    category: { type: String, required: true },
+    thumbnailURL: { type: String, required: true },
+    imageURL: { type: String, required: true },
+    audioURL: { type: String, required: true }
+}, { _id: false }); // Prevents Mongoose from auto-adding an _id field
 const StoryModel = mongoose_1.default.model('Story', StorySchema);
 exports.default = StoryModel;

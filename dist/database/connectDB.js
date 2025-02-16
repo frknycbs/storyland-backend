@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const logger_1 = __importDefault(require("../utils/logger"));
-const connectDB = async () => {
+const connectDB = async (mongoURI) => {
     try {
-        await mongoose_1.default.connect(process.env.MONGO_URI, {
+        await mongoose_1.default.connect(mongoURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

@@ -7,22 +7,13 @@ const app_1 = __importDefault(require("./app"));
 const connectDB_1 = require("./database/connectDB");
 const logger_1 = __importDefault(require("./utils/logger"));
 const PORT = process.env.PORT || 3000;
+const mongoURI = process.env.REMOTE_MONGO_URI || process.env.LOCAL_MONGO_URI || "";
 app_1.default.listen(PORT, async () => {
     const funcName = "[STORYLAND-MAIN] ";
     try {
         logger_1.default.info(funcName + `Started, connecting to mongoDB...`);
-        await (0, connectDB_1.connectDB)();
-        logger_1.default.info(funcName + `Connected to mongoDB, Server running on port ${PORT}`);
-        logger_1.default.warn("asdwarnnn213");
-        const name = 'The Brave Lion';
-        const text = 'Once upon a time, in a jungle far away, there lived a brave lion...';
-        const category = 'Animals';
-        // await addStory(name, text, category);
-        // Example Story ID (you can fetch this dynamically if needed)
-        const storyID = '67ae3809a92665cb1f7cadbe';
-        // Example file path
-        const filePath = './exampleaudioxx.ogg'; // Replace with actual file path
-        // await addStoryAudio(storyID, filePath);
+        await (0, connectDB_1.connectDB)(mongoURI);
+        logger_1.default.info(funcName + `Connected to mongoDB: ${mongoURI}, Server running on port ${PORT}`);
     }
     catch (error) {
         logger_1.default.info('Error: ' + error.message || error);

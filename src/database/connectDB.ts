@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import logger from "../utils/logger";
 
-export const connectDB = async (): Promise<true | null> => {
+export const connectDB = async (mongoURI: string): Promise<true | null> => {
     try {
-        await mongoose.connect(process.env.MONGO_URI as string, {
+        await mongoose.connect(mongoURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         } as mongoose.ConnectOptions);

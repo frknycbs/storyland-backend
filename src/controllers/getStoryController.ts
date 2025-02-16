@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Story from '../database/models/Story';
 
-export const getStoryInfo = async (req: Request, res: Response) => {
+export const getStory = async (req: Request, res: Response) => {
     try {
         const { storyID } = req.query;
 
