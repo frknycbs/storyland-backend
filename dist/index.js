@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
+const constants_1 = require("./constants");
 const connectDB_1 = require("./database/connectDB");
 const logger_1 = __importDefault(require("./utils/logger"));
 const PORT = process.env.PORT || 3000;
-const mongoURI = process.env.REMOTE_MONGO_URI || process.env.LOCAL_MONGO_URI || "";
+const mongoURI = constants_1.constants.REMOTE_MONGO_URI;
 app_1.default.listen(PORT, async () => {
     const funcName = "[STORYLAND-MAIN] ";
     try {
