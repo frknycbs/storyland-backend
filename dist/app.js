@@ -8,8 +8,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const general_1 = __importDefault(require("./routes/general"));
-dotenv_1.default.config();
+const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 app.use(express_1.default.json());
 app.use(body_parser_1.default.json());
 // Middleware to log all requests

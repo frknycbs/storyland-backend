@@ -1,24 +1,40 @@
 
 import app from './app';
-import { constants } from './constants';
+import { constants } from './assets/constants';
+import { stories } from './assets/stories';
 import { connectDB } from './database/connectDB';
 import addStory from './database/service/addStory';
 import { Category } from './types';
 import logger from './utils/logger';
 
-const PORT = process.env.PORT || 3000;
-const mongoURI = constants.REMOTE_MONGO_URI
+const PORT = process.env.PORT || null;
+const mongoURI = process.env.REMOTE_MONGO_URI || null
 app.listen(PORT, async () => {
 
     const funcName = "[STORYLAND-MAIN] "
     try {
         
-        logger.info(funcName + `Started, connecting to mongoDB...`)
-        await connectDB(mongoURI);
+        if(!mongoURI)
+            throw("MongoDB URI not found.")
 
-        logger.info(funcName + `Connected to mongoDB: ${mongoURI}, Server running on port ${PORT}`)
+        if(!PORT)
+            throw("Port not found.")
+
+        logger.info(funcName + `Server running on port ${PORT}, connecting to mongoDB...`)
+        const res: true | null = await connectDB(mongoURI);
+
+        if(!res)
+            throw("MongoDB connection failed.")
+
+        logger.info(funcName + `Connected to mongoDB: ${mongoURI}`)
+
+        /*
+        for(const story of stories) {
+            await addStory(story.name, story.text, story.title, story.category);
+        }
+        */
 
     } catch (error: any) {
-        logger.info('Error: ' + error.message || error);
+        logger.info(funcName + 'Error: ' + error);
     }
 }).on('error', (e: any) => logger.error(e));

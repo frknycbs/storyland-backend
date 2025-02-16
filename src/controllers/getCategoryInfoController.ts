@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Story from '../database/models/Story';
-import { constants } from '../constants';
+import { constants } from '../assets/constants';
 
 export const getCategoryInfo = async (req: Request, res: Response) => {
     try {

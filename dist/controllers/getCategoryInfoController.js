@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCategoryInfo = void 0;
-const constants_1 = require("../constants");
+const constants_1 = require("../assets/constants");
 const getCategoryInfo = async (req, res) => {
     try {
         const categoryInfo = [];
