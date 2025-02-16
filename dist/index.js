@@ -19,7 +19,7 @@ app_1.default.listen(PORT, async () => {
         const res = await (0, connectDB_1.connectDB)(mongoURI);
         if (!res)
             throw ("MongoDB connection failed.");
-        logger_1.default.info(funcName + `Connected to mongoDB: ${mongoURI}`);
+        logger_1.default.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`);
         /*
         for(const story of stories) {
             await addStory(story.name, story.text, story.title, story.category);

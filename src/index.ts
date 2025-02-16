@@ -26,7 +26,7 @@ app.listen(PORT, async () => {
         if(!res)
             throw("MongoDB connection failed.")
 
-        logger.info(funcName + `Connected to mongoDB: ${mongoURI}`)
+        logger.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`)
 
         /*
         for(const story of stories) {
