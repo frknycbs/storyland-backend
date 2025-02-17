@@ -7,10 +7,9 @@ export const connectDB = async (mongoURI: string): Promise<true | null> => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         } as mongoose.ConnectOptions);
-        logger.info('MongoDB connected');
         return true; // Explicitly returning 'true' when successful
     } catch (err: unknown) {
-        logger.error(err instanceof Error ? err.message : 'Unknown error');
+        logger.error(err);
         return null; // Explicitly returning 'null' when error occurs
     }
 };

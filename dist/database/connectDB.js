@@ -12,11 +12,10 @@ const connectDB = async (mongoURI) => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        logger_1.default.info('MongoDB connected');
         return true; // Explicitly returning 'true' when successful
     }
     catch (err) {
-        logger_1.default.error(err instanceof Error ? err.message : 'Unknown error');
+        logger_1.default.error(err);
         return null; // Explicitly returning 'null' when error occurs
     }
 };

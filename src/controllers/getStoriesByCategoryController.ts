@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Story from '../database/models/Story';
+import StoryModel from '../database/models/Story';
 
 export const getStoriesByCategory = async (req: Request, res: Response) => {
     try {
@@ -9,7 +9,7 @@ export const getStoriesByCategory = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Category is required' });
         }
 
-        const stories = await Story.find({ category });
+        const stories = await StoryModel.find({ category });
 
         if (stories.length === 0) {
             return res.status(404).json({ message: 'No stories found for this category' });
