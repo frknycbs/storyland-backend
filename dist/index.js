@@ -4,7 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
+const stories_1 = require("./assets/stories");
 const connectDB_1 = require("./database/connectDB");
+const addStory_1 = __importDefault(require("./database/service/addStory"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const PORT = process.env.PORT || null;
 const mongoURI = process.env.REMOTE_MONGO_URI || null;
@@ -20,11 +22,9 @@ app_1.default.listen(PORT, async () => {
         if (!res)
             throw ("MongoDB connection failed.");
         logger_1.default.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`);
-        /*
-        for(const story of stories) {
-            await addStory(story.name, story.text, story.title, story.category);
+        for (const story of stories_1.stories) {
+            await (0, addStory_1.default)(story.name, story.text, story.title, story.category);
         }
-        */
     }
     catch (error) {
         logger_1.default.info(funcName + 'Error: ' + error);

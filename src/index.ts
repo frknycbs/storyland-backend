@@ -28,11 +28,11 @@ app.listen(PORT, async () => {
 
         logger.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`)
 
-        /*
+        
         for(const story of stories) {
             await addStory(story.name, story.text, story.title, story.category);
         }
-        */
+        
 
     } catch (error: any) {
         logger.info(funcName + 'Error: ' + error);
