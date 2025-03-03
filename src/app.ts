@@ -4,11 +4,15 @@ import bodyParser from 'body-parser';
 import logger from './utils/logger';
 import router from './routes/general';
 import path from 'path';
-
+import cors from 'cors';
 
 
 const app = express();
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+
+// Enable CORS for all routes
+app.use(cors());
 
 app.use(express.json());
 
