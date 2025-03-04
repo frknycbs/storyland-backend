@@ -10,7 +10,7 @@ import { iapConfig } from './utils/iapConfig';
 import logger from './utils/logger';
 
 const PORT = process.env.PORT || null;
-const mongoURI = process.env.REMOTE_MONGO_URI || null
+const mongoURI = process.env.MONGO_URI || null
 app.listen(PORT, async () => {
 
     const funcName = "[STORYLAND-MAIN] "
@@ -37,9 +37,11 @@ app.listen(PORT, async () => {
             throw("IAP config failed.")
 
         
+       
+        /*
         for(const story of stories) {
             await addStory(story.name, story.characterName, story.text, story.title, story.category);
-        }
+        }*/
         
 
     } catch (error: any) {
