@@ -12,7 +12,7 @@ export const addStoryController = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Missing info' });
         }
        
-        const addedStory: Story | null = await addStory(body.name as string, body.text as string, body.title as string, body.category as string);
+        const addedStory: Story | null = await addStory(body.name as string, body.characterName as string, body.text as string, body.title as string, body.category as string);
 
         if (!addedStory) {
             return res.status(500).json({ message: 'Error adding story' });

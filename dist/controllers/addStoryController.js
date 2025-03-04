@@ -11,7 +11,7 @@ const addStoryController = async (req, res) => {
         if (!body?.name || !body?.text || !body?.title || !body?.category) {
             return res.status(400).json({ message: 'Missing info' });
         }
-        const addedStory = await (0, addStory_1.default)(body.name, body.text, body.title, body.category);
+        const addedStory = await (0, addStory_1.default)(body.name, body.characterName, body.text, body.title, body.category);
         if (!addedStory) {
             return res.status(500).json({ message: 'Error adding story' });
         }

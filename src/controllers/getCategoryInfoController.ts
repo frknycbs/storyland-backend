@@ -7,7 +7,7 @@ export const getCategoryInfo = async (req: Request, res: Response) => {
         const categoryInfo: Array<{categoryName: string, bgImageURL: string}> = []
 
         for(const elem of constants.categories) {
-            categoryInfo.push({categoryName: elem, bgImageURL: `${process.env.BASE_URL}/category_backgrounds/${elem.toLowerCase()}.jpg`})
+            categoryInfo.push({categoryName: elem, bgImageURL: `${process.env.RESOURCE_URL}/category_backgrounds/${elem.toLowerCase()}.jpg`})
         }
 
         return res.json(categoryInfo);

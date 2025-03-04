@@ -6,6 +6,7 @@ import { connectDB } from './database/connectDB';
 import StoryModel from './database/models/Story';
 import addStory from './database/service/addStory';
 import { Category } from './types';
+import { iapConfig } from './utils/iapConfig';
 import logger from './utils/logger';
 
 const PORT = process.env.PORT || null;
@@ -23,18 +24,23 @@ app.listen(PORT, async () => {
 
         logger.info(funcName + `Server running on port ${PORT}, connecting to mongoDB...`)
 
-        const res: true | null = await connectDB(mongoURI);
+        let res: true | null = await connectDB(mongoURI);
 
         if(!res)
             throw("MongoDB connection failed.")
 
         logger.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`)
 
-        /*
+        res = await iapConfig();
+
+        if(!res)
+            throw("IAP config failed.")
+
+        
         for(const story of stories) {
-            await addStory(story.name, story.text, story.title, story.category);
+            await addStory(story.name, story.characterName, story.text, story.title, story.category);
         }
-        */
+        
 
     } catch (error: any) {
         logger.info(funcName + 'Error: ' + error);

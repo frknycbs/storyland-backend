@@ -4,7 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
+const stories_1 = require("./assets/stories");
 const connectDB_1 = require("./database/connectDB");
+const addStory_1 = __importDefault(require("./database/service/addStory"));
+const iapConfig_1 = require("./utils/iapConfig");
 const logger_1 = __importDefault(require("./utils/logger"));
 const PORT = process.env.PORT || null;
 const mongoURI = process.env.REMOTE_MONGO_URI || null;
@@ -16,15 +19,16 @@ app_1.default.listen(PORT, async () => {
         if (!PORT)
             throw ("Port not found.");
         logger_1.default.info(funcName + `Server running on port ${PORT}, connecting to mongoDB...`);
-        const res = await (0, connectDB_1.connectDB)(mongoURI);
+        let res = await (0, connectDB_1.connectDB)(mongoURI);
         if (!res)
             throw ("MongoDB connection failed.");
         logger_1.default.info(funcName + `Connected to mongoDB: ${mongoURI.split("@")[1]}`);
-        /*
-        for(const story of stories) {
-            await addStory(story.name, story.text, story.title, story.category);
+        res = await (0, iapConfig_1.iapConfig)();
+        if (!res)
+            throw ("IAP config failed.");
+        for (const story of stories_1.stories) {
+            await (0, addStory_1.default)(story.name, story.characterName, story.text, story.title, story.category);
         }
-        */
     }
     catch (error) {
         logger_1.default.info(funcName + 'Error: ' + error);

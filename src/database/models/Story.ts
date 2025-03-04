@@ -6,6 +6,7 @@ const StorySchema = new Schema({
     text: { type: String, required: true },
     title: { type: String, required: true },
     name: { type: String, required: true },
+    characterName: { type: String, required: true },
     category: { type: String, required: true },
     thumbnailURL: { type: String, required: true },
     imageURL: { type: String, required: true },
