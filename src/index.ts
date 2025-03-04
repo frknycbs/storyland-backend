@@ -35,8 +35,6 @@ app.listen(PORT, async () => {
 
         if(!res)
             throw("IAP config failed.")
-
-        
        
         /*
         for(const story of stories) {

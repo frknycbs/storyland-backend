@@ -44,6 +44,6 @@ const StorySchema = new mongoose_1.Schema({
     thumbnailURL: { type: String, required: true },
     imageURL: { type: String, required: true },
     audioURL: { type: String, required: true }
-}, { _id: false }); // Prevents Mongoose from auto-adding an _id field
+}); // Prevents Mongoose from auto-adding an _id field
 const StoryModel = mongoose_1.default.model('Story', StorySchema);
 exports.default = StoryModel;

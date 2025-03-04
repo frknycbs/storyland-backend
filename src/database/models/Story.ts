@@ -11,7 +11,7 @@ const StorySchema = new Schema({
     thumbnailURL: { type: String, required: true },
     imageURL: { type: String, required: true },
     audioURL: { type: String, required: true }
-}, { _id: false }); // Prevents Mongoose from auto-adding an _id field
+}); // Prevents Mongoose from auto-adding an _id field
 
 const StoryModel = mongoose.model<Story>('Story', StorySchema);
 export default StoryModel;
