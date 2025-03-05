@@ -37,9 +37,11 @@ app.listen(PORT, async () => {
             throw("IAP config failed.")
        
         
+        /*
         for(const story of stories) {
             await addStory(story.name, story.characterName, story.text, story.title, story.category);
         }
+        */
         
 
     } catch (error: any) {

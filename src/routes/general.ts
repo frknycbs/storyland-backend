@@ -4,6 +4,7 @@ import { getStoriesByCategory } from '../controllers/getStoriesByCategoryControl
 import { addStoryController } from '../controllers/addStoryController';
 import { getCategoryInfo } from '../controllers/getCategoryInfoController';
 import { health } from '../controllers/healthController';
+import { verifyPurchase } from '../controllers/verifyPurchaseController';
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.get('/story/getStoryInfo', getStory);
 router.get('/story/getStoriesByCategory', getStoriesByCategory);
 router.get('/category/getCategoryInfo', getCategoryInfo)
 router.get('/health', health);
+router.post('/purchase/verifyPurchase', verifyPurchase)
 // router.post('/story/addStory', addStoryController);
 
 export default router;

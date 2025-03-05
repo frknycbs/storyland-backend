@@ -5,20 +5,11 @@ import logger from '../utils/logger';
 export const verifyPurchase = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-PURCHASE] "
     try {
-        const receipt: iap.GoogleReceipt | iap.AppleReceipt = req.body.receipt;
-        const service: "google" | "apple" = req.body.service;
+        
+        const receipt = req.body;
+        logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
 
-        if (!receipt || !service) {
-            return res.status(400).json({ message: 'Receipt/Service name is required' });
-        }
-
-        const response: iap.ValidationResponse = await iap.validate({
-            service, receipt
-        });
-
-        logger.info(`${funcName} Response: ${JSON.stringify(response)}`)
-
-        return res.json({response});
+        return res.json({receipt});
     }
      catch (error: any) {
         return res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
