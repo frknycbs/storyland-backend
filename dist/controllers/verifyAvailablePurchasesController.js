@@ -25,7 +25,7 @@ const verifyAvailablePurchases = async (req, res) => {
         // Remove duplicate productIds from the filtered array
         const distinctReceipts = Array.from(new Map(uniqueByPurchaseToken.map(item => [item.productId, item])).values());
         // Init final receipts by first, asking our DB for verified receipts
-        const finalReceipts = await GooglePlayPurchaseReceipt_1.default.find({ purchaseToken: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
+        const finalReceipts = await GooglePlayPurchaseReceipt_1.default.find({ _id: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
         logger_1.default.info(`${funcName} Final Receipts: ${JSON.stringify(finalReceipts, null, 4)}`);
         // Find receipts that are missing from distinctReceipts
         const missingReceipts = distinctReceipts.filter(receipt => !finalReceipts.find(finalReceipt => finalReceipt.purchaseToken === receipt.purchaseToken));

@@ -36,7 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const GooglePlayPurchaseReceiptSchema = new mongoose_1.Schema({
     // _id is purchaseToken
-    _id: { type: mongoose_1.Types.ObjectId, required: true },
+    _id: { type: String, required: true },
     packageName: { type: String, required: true },
     productId: { type: String, required: true }
 }); // Prevents Mongoose from auto-adding an _id field

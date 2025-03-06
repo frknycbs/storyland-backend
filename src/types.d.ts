@@ -63,7 +63,7 @@ export interface GooglePlayPurchaseReceiptResponse {
     consumptionState: number; // 0 for yet to be consumed, 1 for consumed
     developerPayload: string; // "",
     orderId: string; // "GPA.3325-6870-5718-77771"
-    acknowledgementState: number // 0 for not acknowledged, 1 for acknowledged
+    acknowledgementState: number // 0. Yet to be acknowledged 1. Acknowledged
     kind: string; // "androidpublisher#productPurchase",
     regionCode: string; // "TR"
 }

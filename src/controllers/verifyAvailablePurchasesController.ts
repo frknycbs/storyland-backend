@@ -33,7 +33,7 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
 
         // Init final receipts by first, asking our DB for verified receipts
         const finalReceipts: Array<GooglePlayVerifyPurchaseRequestBody> =
-            await GooglePlayPurchaseReceiptModel.find({ purchaseToken: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
+            await GooglePlayPurchaseReceiptModel.find({ _id: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
 
         logger.info(`${funcName} Final Receipts: ${JSON.stringify(finalReceipts, null, 4)}`);
 

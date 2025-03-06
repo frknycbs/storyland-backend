@@ -3,6 +3,7 @@ import { google } from 'googleapis';
 import logger from '../utils/logger';
 import { GooglePlayPurchaseReceipt, GooglePlayPurchaseReceiptDB, GooglePlayPurchaseReceiptResponse, GooglePlayVerifyPurchaseRequestBody } from '../types';
 import GooglePlayPurchaseReceiptModel from '../database/models/GooglePlayPurchaseReceipt';
+import { ObjectId } from "mongodb";
 
 export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseRequestBody): Promise<true | null> => {
     const funcName = "[VERIFY-PURCHASE-SERVICE] ";
@@ -10,7 +11,7 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
         logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
 
         // First, we check DB even though it is supposed to be a new receipt so we don't really expect to find it
-        const doc: GooglePlayPurchaseReceiptDB | null = await GooglePlayPurchaseReceiptModel.findById({ _id: receipt.purchaseToken });
+        const doc: GooglePlayPurchaseReceiptDB | null = await GooglePlayPurchaseReceiptModel.findById({ _id: receipt.purchaseToken});
         if (doc) {
             return true
         }
@@ -52,8 +53,8 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
             throw new Error('Purchase verification failed for purchase ' + receipt.purchaseToken + ': Purchase either pending or canceled');
 
         // Here, we ensure purchase is completed.  if not acknowledged, acknowledge the purchase as well
-        if(response.acknowledgementState !== 0) {
-            logger.info(`${funcName} Purchase ${receipt.purchaseToken} not acknowledged, acknowledging purchase...`)
+        if(response.acknowledgementState === 0) {
+            logger.info(`${funcName} Purchase ${receipt.purchaseToken} is yet to be acknowledged, acknowledging purchase...`)
             const res = await androidPublisher.purchases.products.acknowledge({
                 packageName: receipt.packageName,
                 productId: receipt.productId,

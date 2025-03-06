@@ -46,8 +46,8 @@ const verifyPurchaseService = async (receipt) => {
         if (response.purchaseState !== 0)
             throw new Error('Purchase verification failed for purchase ' + receipt.purchaseToken + ': Purchase either pending or canceled');
         // Here, we ensure purchase is completed.  if not acknowledged, acknowledge the purchase as well
-        if (response.acknowledgementState !== 0) {
-            logger_1.default.info(`${funcName} Purchase ${receipt.purchaseToken} not acknowledged, acknowledging purchase...`);
+        if (response.acknowledgementState === 0) {
+            logger_1.default.info(`${funcName} Purchase ${receipt.purchaseToken} is yet to be acknowledged, acknowledging purchase...`);
             const res = await androidPublisher.purchases.products.acknowledge({
                 packageName: receipt.packageName,
                 productId: receipt.productId,
