@@ -25,11 +25,16 @@ const verifyAvailablePurchases = async (req, res) => {
         // Remove duplicate productIds from the filtered array
         const distinctReceipts = Array.from(new Map(uniqueByPurchaseToken.map(item => [item.productId, item])).values());
         // Init final receipts by first, asking our DB for verified receipts
-        const finalReceipts = await GooglePlayPurchaseReceipt_1.default.find({ _id: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
-        logger_1.default.info(`${funcName} Final Receipts: ${JSON.stringify(finalReceipts, null, 4)}`);
+        const receiptsDb = await GooglePlayPurchaseReceipt_1.default.find({ _id: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
+        logger_1.default.info(`${funcName} Receipts in DB: ${JSON.stringify(receiptsDb, null, 4)}`);
         // Find receipts that are missing from distinctReceipts
-        const missingReceipts = distinctReceipts.filter(receipt => !finalReceipts.find(finalReceipt => finalReceipt.purchaseToken === receipt.purchaseToken));
+        const missingReceipts = distinctReceipts.filter(receipt => !receiptsDb.find(receiptDb => receiptDb._id === receipt.purchaseToken));
         logger_1.default.info(`${funcName} Missing Receipts: ${JSON.stringify(missingReceipts, null, 4)}`);
+        const finalReceipts = receiptsDb.map(receiptDb => ({
+            packageName: receiptDb.packageName,
+            productId: receiptDb.productId,
+            purchaseToken: receiptDb._id
+        }));
         // If there are missing receipts in DB, verify them via Google
         if (missingReceipts.length > 0) {
             for (const receipt of missingReceipts) {

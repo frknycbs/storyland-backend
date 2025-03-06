@@ -11,7 +11,7 @@ const verifyPurchase = async (req, res) => {
     const funcName = "[VERIFY-PURCHASE-CONTROLLER] ";
     try {
         const receipt = req.body;
-        logger_1.default.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
+        // logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
         const isVerified = await (0, verifyPurchaseService_1.verifyPurchaseService)(receipt);
         if (!isVerified)
             throw new Error('Receipt verification failed');

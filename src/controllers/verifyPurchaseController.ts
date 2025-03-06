@@ -11,7 +11,7 @@ export const verifyPurchase = async (req: Request, res: Response) => {
     try {
         const receipt: GooglePlayVerifyPurchaseRequestBody = req.body;
 
-        logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
+        // logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
 
         const isVerified: true | null = await verifyPurchaseService(receipt);
 
