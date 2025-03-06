@@ -34,18 +34,11 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const StorySchema = new mongoose_1.Schema({
-    _id: { type: mongoose_1.Types.ObjectId, auto: true }, // Auto-generate ObjectId
-    text: { type: String, required: true },
-    title: { type: String, required: true },
-    name: { type: String, required: true },
-    characterName: { type: String, required: true },
-    category: { type: String, required: true },
-    thumbnailURL: { type: String, required: true },
-    disabledThumbnailURL: { type: String, required: true },
-    imageURL: { type: String, required: true },
-    audioURL: { type: String, required: true },
-    free: { type: Boolean, required: true },
+const GooglePlayPurchaseReceiptSchema = new mongoose_1.Schema({
+    // _id is purchaseToken
+    _id: { type: mongoose_1.Types.ObjectId, required: true },
+    packageName: { type: String, required: true },
+    productId: { type: String, required: true }
 }); // Prevents Mongoose from auto-adding an _id field
-const StoryModel = mongoose_1.default.model('Story', StorySchema);
-exports.default = StoryModel;
+const GooglePlayPurchaseReceiptModel = mongoose_1.default.model('GooglePlayPurchaseReceipt', GooglePlayPurchaseReceiptSchema);
+exports.default = GooglePlayPurchaseReceiptModel;

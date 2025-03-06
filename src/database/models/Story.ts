@@ -9,8 +9,10 @@ const StorySchema = new Schema({
     characterName: { type: String, required: true },
     category: { type: String, required: true },
     thumbnailURL: { type: String, required: true },
+    disabledThumbnailURL: { type: String, required: true },
     imageURL: { type: String, required: true },
-    audioURL: { type: String, required: true }
+    audioURL: { type: String, required: true },
+    free: { type: Boolean, required: true },
 }); // Prevents Mongoose from auto-adding an _id field
 
 const StoryModel = mongoose.model<Story>('Story', StorySchema);
