@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { google } from 'googleapis';
 import logger from '../utils/logger';
-import { GooglePlayPurchaseReceipt, GooglePlayPurchaseReceiptDB, GooglePlayPurchaseReceiptResponse, GooglePlayVerifyPurchaseRequestBody } from '../types';
+import { GooglePlayPurchaseReceipt, GooglePlayPurchaseReceiptDB, GooglePlayPurchaseReceiptResponse, GooglePlayVerifyPurchaseRequestBody, Story } from '../types';
 import GooglePlayPurchaseReceiptModel from '../database/models/GooglePlayPurchaseReceipt';
 import { verifyPurchaseService } from '../services/verifyPurchaseService';
 import StoryModel from '../database/models/Story';
@@ -19,10 +19,15 @@ export const verifyPurchase = async (req: Request, res: Response) => {
             throw new Error('Receipt verification failed');
 
         // If the receipt is verified, fetch all stories from category (=productId)
-        const stories = await StoryModel.find({ category: receipt.productId });
-        for(const story of stories)
-            story.disabled = false
+        let storiesDb = await StoryModel.find({ category: receipt.productId })
+        // Map over the stories to create new objects with disabled: false
 
+        let stories: Story[] = storiesDb.map(story => ({
+            ...story.toObject(), // Convert Mongoose document to plain object
+            disabled: false
+        }));
+
+        // console.log(JSON.stringify(finalStories, null, 4))
         return res.json(stories);
     } catch (error: any) {
         logger.error(`${funcName} Error: ${error.message}`);

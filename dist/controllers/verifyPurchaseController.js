@@ -16,9 +16,13 @@ const verifyPurchase = async (req, res) => {
         if (!isVerified)
             throw new Error('Receipt verification failed');
         // If the receipt is verified, fetch all stories from category (=productId)
-        const stories = await Story_1.default.find({ category: receipt.productId });
-        for (const story of stories)
-            story.disabled = false;
+        let storiesDb = await Story_1.default.find({ category: receipt.productId });
+        // Map over the stories to create new objects with disabled: false
+        let stories = storiesDb.map(story => ({
+            ...story.toObject(), // Convert Mongoose document to plain object
+            disabled: false
+        }));
+        // console.log(JSON.stringify(finalStories, null, 4))
         return res.json(stories);
     }
     catch (error) {

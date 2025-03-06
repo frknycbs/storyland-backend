@@ -66,7 +66,13 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
 
 
         // If the receipt is verified, fetch all stories from category (=productId)
-        const stories: Story[] = await StoryModel.find();
+        
+        const storiesDb = await StoryModel.find()
+
+        const stories: Story[] = storiesDb.map(story => ({
+            ...story.toObject(), // Convert Mongoose document to plain object
+        }));
+
         for (const story of stories) {
             const isDisabled = !story.free && !distinctProductIds.includes(story.category);
             story.disabled = isDisabled;

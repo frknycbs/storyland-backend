@@ -47,7 +47,10 @@ const verifyAvailablePurchases = async (req, res) => {
         // Now, we'll find distinct product Ids
         const distinctProductIds = finalReceipts.map(receipt => receipt.productId);
         // If the receipt is verified, fetch all stories from category (=productId)
-        const stories = await Story_1.default.find();
+        const storiesDb = await Story_1.default.find();
+        const stories = storiesDb.map(story => ({
+            ...story.toObject(), // Convert Mongoose document to plain object
+        }));
         for (const story of stories) {
             const isDisabled = !story.free && !distinctProductIds.includes(story.category);
             story.disabled = isDisabled;
