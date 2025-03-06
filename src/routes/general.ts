@@ -10,9 +10,9 @@ import { verifyAvailablePurchases } from '../controllers/verifyAvailablePurchase
 const router = Router();
 
 // Story routes
-router.get('/story/getStoryInfo', getStory);
-router.get('/story/getStoriesByCategory', getStoriesByCategory);
-// router.get('/category/getCategoryInfo', getCategoryInfo)
+// router.get('/story/getStoryInfo', getStory);
+// router.get('/story/getStoriesByCategory', getStoriesByCategory);
+router.get('/category/getCategoryInfo', getCategoryInfo)
 router.get('/health', health);
 router.post('/purchase/verifyPurchase', verifyPurchase)
 router.post('/purchase/verifyAvailablePurchases', verifyAvailablePurchases)
