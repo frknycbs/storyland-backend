@@ -76,7 +76,14 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
             productId: receipt.productId
         });
 
-        await googlePlayReceiptDb.save();
+        await GooglePlayPurchaseReceiptModel.updateOne(
+            { _id: receipt.purchaseToken }, // Search by `_id`
+            {
+                packageName: receipt.packageName,
+                productId: receipt.productId
+            },
+            { upsert: true } // Insert if it doesn't exist
+        );
 
 
         // Send the response back to the client
