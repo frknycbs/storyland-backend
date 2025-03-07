@@ -15,7 +15,7 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Missing receipts field' });
         }
 
-        if (receipts.length > 10) {
+        if (receipts.length > 4) {
             return res.status(400).json({ message: 'Too many receipts' });
         }
 
@@ -26,11 +26,13 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
             new Map(receipts.map(item => [item.purchaseToken, item])).values()
         );
 
+        logger.info(`${funcName} uniqueByPurchaseToken: ${JSON.stringify(uniqueByPurchaseToken, null, 4)}`);
         // Remove duplicate productIds from the filtered array
         const distinctReceipts: Array<GooglePlayVerifyPurchaseRequestBody> = Array.from(
             new Map(uniqueByPurchaseToken.map(item => [item.productId, item])).values()
         );
 
+        logger.info(`${funcName} distinctReceipts: ${JSON.stringify(distinctReceipts, null, 4)}`);
         // Init final receipts by first, asking our DB for verified receipts
         const receiptsDb: Array<GooglePlayPurchaseReceiptDB> =
             await GooglePlayPurchaseReceiptModel.find({ _id: { $in: distinctReceipts.map(receipt => receipt.purchaseToken) } });
