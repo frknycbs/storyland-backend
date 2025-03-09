@@ -5,6 +5,7 @@ const getCategoryInfoController_1 = require("../controllers/getCategoryInfoContr
 const healthController_1 = require("../controllers/healthController");
 const verifyPurchaseController_1 = require("../controllers/verifyPurchaseController");
 const verifyAvailablePurchasesController_1 = require("../controllers/verifyAvailablePurchasesController");
+const revokePurchaseController_1 = require("../controllers/revokePurchaseController");
 const router = (0, express_1.Router)();
 // Story routes
 // router.get('/story/getStoryInfo', getStory);
@@ -13,5 +14,6 @@ router.get('/category/getCategoryInfo', getCategoryInfoController_1.getCategoryI
 router.get('/health', healthController_1.health);
 router.post('/purchase/verifyPurchase', verifyPurchaseController_1.verifyPurchase);
 router.post('/purchase/verifyAvailablePurchases', verifyAvailablePurchasesController_1.verifyAvailablePurchases);
+router.post('/purchase/revokePurchase', revokePurchaseController_1.revokePurchase);
 // router.post('/story/addStory', addStoryController);
 exports.default = router;
