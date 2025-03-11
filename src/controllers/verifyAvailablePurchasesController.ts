@@ -11,21 +11,26 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-AVAILABLE-PURCHASES-CONTROLLER] ";
     try {
         const receipts: Array<GooglePlayVerifyPurchaseRequestBody> = req.body;
-        if(!receipts || receipts.length > 1)
+        if (!receipts || receipts.length > 1)
             throw new Error('Max one available purchase allowed');
 
-        const receipt = receipts[0]
-        if(Object.keys(receipt).length !== 4)
-            throw new Error('Missing required field count');
+        const receipt = receipts.length === 1 ? receipts[0] : null
+        let isVerified: true | null = null
 
-        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
-            throw new Error('Missing required fields');
+        if (receipt) {
+            if (Object.keys(receipt).length !== 4)
+                throw new Error('Missing required field count');
 
-        logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
+            if (!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
+                throw new Error('Missing required fields');
+
+            logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
 
 
-        const isVerified: true | null = await verifyPurchaseService(receipt);
-        
+            isVerified = await verifyPurchaseService(receipt);
+        }
+
+
 
         // If the receipt is verified, fetch all stories from category (=productId)
         const storiesDb = await StoryModel.find();
@@ -35,7 +40,7 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
         }));
 
         for (const story of stories) {
-            story.disabled  = !story.free && !isVerified
+            story.disabled = !story.free && !isVerified
 
             if (story.disabled) {
                 story.text = ""
