@@ -11,12 +11,16 @@ const verifyPurchase = async (req, res) => {
     const funcName = "[VERIFY-PURCHASE-CONTROLLER] ";
     try {
         const receipt = req.body;
+        if (Object.keys(receipt).length !== 3)
+            throw new Error('Missing required field count');
+        if (!receipt.packageName || !receipt.productId || !receipt.purchaseToken)
+            throw new Error('Missing required fields');
         // logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
         const isVerified = await (0, verifyPurchaseService_1.verifyPurchaseService)(receipt);
         if (!isVerified)
             throw new Error('Receipt verification failed');
         // If the receipt is verified, fetch all stories from category (=productId)
-        let storiesDb = await Story_1.default.find({ category: receipt.productId });
+        let storiesDb = await Story_1.default.find();
         // Map over the stories to create new objects with disabled: false
         let stories = storiesDb.map(story => ({
             ...story.toObject(), // Convert Mongoose document to plain object

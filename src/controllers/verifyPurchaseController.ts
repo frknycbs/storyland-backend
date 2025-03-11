@@ -10,6 +10,12 @@ export const verifyPurchase = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-PURCHASE-CONTROLLER] ";
     try {
         const receipt: GooglePlayVerifyPurchaseRequestBody = req.body;
+        if(Object.keys(receipt).length !== 3)
+            throw new Error('Missing required field count');
+
+        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken)
+            throw new Error('Missing required fields');
+        
 
         // logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
 
@@ -19,7 +25,7 @@ export const verifyPurchase = async (req: Request, res: Response) => {
             throw new Error('Receipt verification failed');
 
         // If the receipt is verified, fetch all stories from category (=productId)
-        let storiesDb = await StoryModel.find({ category: receipt.productId })
+        let storiesDb = await StoryModel.find()
         // Map over the stories to create new objects with disabled: false
 
         let stories: Story[] = storiesDb.map(story => ({

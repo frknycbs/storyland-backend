@@ -70,12 +70,6 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
 
         // Here, we ensure the purchase is acknowledged, now adding it to DB
 
-        const googlePlayReceiptDb = new GooglePlayPurchaseReceiptModel({
-            _id: receipt.purchaseToken,
-            packageName: receipt.packageName,
-            productId: receipt.productId
-        });
-
         await GooglePlayPurchaseReceiptModel.updateOne(
             { _id: receipt.purchaseToken }, // Search by `_id`
             {

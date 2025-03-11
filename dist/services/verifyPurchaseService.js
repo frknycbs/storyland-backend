@@ -59,11 +59,6 @@ const verifyPurchaseService = async (receipt) => {
                 throw new Error('Purchase verification failed for purchase ' + receipt.purchaseToken + ': Could not acknowledge purchase: ' + JSON.stringify(res.status, null, 4));
         }
         // Here, we ensure the purchase is acknowledged, now adding it to DB
-        const googlePlayReceiptDb = new GooglePlayPurchaseReceipt_1.default({
-            _id: receipt.purchaseToken,
-            packageName: receipt.packageName,
-            productId: receipt.productId
-        });
         await GooglePlayPurchaseReceipt_1.default.updateOne({ _id: receipt.purchaseToken }, // Search by `_id`
         {
             packageName: receipt.packageName,
