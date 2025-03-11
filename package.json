@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "push" : "git add . && git commit -m 'auto-update' && git push"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
