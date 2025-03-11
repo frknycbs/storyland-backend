@@ -10,8 +10,7 @@ while true; do
     GIT_OUTPUT=$(git pull)
     
     if [[ "$GIT_OUTPUT" != *"Already up to date."* ]]; then
-        echo "Changes detected. Rebuilding..."
-        npm run build
+        echo "Changes pulled, restarting app"
         pkill node
         nohup node "$NODE_SCRIPT" &> "$LOG_FILE" &
     fi
