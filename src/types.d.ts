@@ -26,6 +26,7 @@ export interface GooglePlayVerifyPurchaseRequestBody {
     purchaseToken: string;
     productId: string;
     packageName: string;
+    orderId: string;
 }
 
 export interface GooglePlayPurchaseReceipt {
@@ -72,6 +73,7 @@ export interface GooglePlayPurchaseReceiptDB {
     _id: string; // "ophheechdfbmbffdcccdfdof.AO-J1OyH489yJNHap6_QfT0hziV_4PElf3j1DGqERl1R9UQoU0_13acmwU0yyvKstaBzykWm1adVa2aFdtfXx61TVJnpAJBNE44zC6SvO8LLawQyjJqDVvM"
     packageName: string;
     productId: string;
+    orderId: string;
 }
 
 export type Category = 'animals' | 'space' | 'nature' | 'cars'

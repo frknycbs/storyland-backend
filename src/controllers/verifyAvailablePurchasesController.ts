@@ -15,10 +15,10 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
             throw new Error('Only one available purchase allowed');
 
         const receipt = receipts[0]
-        if(Object.keys(receipt).length !== 3)
+        if(Object.keys(receipt).length !== 4)
             throw new Error('Missing required field count');
 
-        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken)
+        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
             throw new Error('Missing required fields');
 
         logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);

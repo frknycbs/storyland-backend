@@ -74,7 +74,8 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
             { _id: receipt.purchaseToken }, // Search by `_id`
             {
                 packageName: receipt.packageName,
-                productId: receipt.productId
+                productId: receipt.productId,
+                orderId: receipt.orderId
             },
             { upsert: true } // Insert if it doesn't exist
         );

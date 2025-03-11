@@ -10,10 +10,10 @@ export const verifyPurchase = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-PURCHASE-CONTROLLER] ";
     try {
         const receipt: GooglePlayVerifyPurchaseRequestBody = req.body;
-        if(Object.keys(receipt).length !== 3)
+        if(Object.keys(receipt).length !== 4)
             throw new Error('Missing required field count');
 
-        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken)
+        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
             throw new Error('Missing required fields');
         
 

@@ -15,9 +15,9 @@ const verifyAvailablePurchases = async (req, res) => {
         if (receipts.length !== 1)
             throw new Error('Only one available purchase allowed');
         const receipt = receipts[0];
-        if (Object.keys(receipt).length !== 3)
+        if (Object.keys(receipt).length !== 4)
             throw new Error('Missing required field count');
-        if (!receipt.packageName || !receipt.productId || !receipt.purchaseToken)
+        if (!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
             throw new Error('Missing required fields');
         logger_1.default.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
         const isVerified = await (0, verifyPurchaseService_1.verifyPurchaseService)(receipt);
