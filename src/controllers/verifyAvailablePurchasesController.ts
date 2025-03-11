@@ -11,8 +11,8 @@ export const verifyAvailablePurchases = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-AVAILABLE-PURCHASES-CONTROLLER] ";
     try {
         const receipts: Array<GooglePlayVerifyPurchaseRequestBody> = req.body;
-        if(receipts.length !== 1)
-            throw new Error('Only one available purchase allowed');
+        if(!receipts || receipts.length > 1)
+            throw new Error('Max one available purchase allowed');
 
         const receipt = receipts[0]
         if(Object.keys(receipt).length !== 4)
