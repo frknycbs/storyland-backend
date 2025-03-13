@@ -5,26 +5,25 @@ import { GooglePlayPurchaseReceipt, GooglePlayPurchaseReceiptDB, GooglePlayPurch
 import GooglePlayPurchaseReceiptModel from '../database/models/GooglePlayPurchaseReceipt';
 import { verifyPurchaseService } from '../services/verifyPurchaseService';
 import StoryModel from '../database/models/Story';
+import { constants } from '../assets/constants';
 
 export const verifyPurchase = async (req: Request, res: Response) => {
     const funcName = "[VERIFY-PURCHASE-CONTROLLER] ";
     try {
         const receipt: GooglePlayVerifyPurchaseRequestBody = req.body;
-        if(Object.keys(receipt).length !== 4)
-            throw new Error('Missing required field count');
+        let isVerified: true | null = null
 
-        if(!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
-            throw new Error('Missing required fields');
-        
+        if (receipt) {
+            if (Object.keys(receipt).length !== 4)
+                throw new Error('Missing required field count');
 
-        // logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
+            if (!receipt.packageName || !receipt.productId || !receipt.purchaseToken || !receipt.orderId)
+                throw new Error('Missing required fields');
 
-        const isVerified: true | null = await verifyPurchaseService(receipt);
+            isVerified = await verifyPurchaseService(receipt)
+        }
 
-        if (!isVerified)
-            throw new Error('Receipt verification failed');
-
-        // If the receipt is verified, fetch all stories from category (=productId)
+        // If the receipt is verified, fetch all stories
         let storiesDb = await StoryModel.find()
         // Map over the stories to create new objects with disabled: false
 
@@ -33,8 +32,26 @@ export const verifyPurchase = async (req: Request, res: Response) => {
             disabled: false
         }));
 
-        // console.log(JSON.stringify(finalStories, null, 4))
-        return res.json(stories);
+        for (const story of stories) {
+            story.disabled = !story.free && !isVerified
+
+            if (story.disabled) {
+                story.text = ""
+                story.title = ""
+                story.thumbnailURL = ""
+                story.audioURL = ""
+                story.imageURL = ""
+            }
+        }
+
+        const categoryInfo: Array<{ categoryName: string, bgImageURL: string }> = []
+
+        for (const elem of constants.categories) {
+            categoryInfo.push({ categoryName: elem, bgImageURL: `${process.env.RESOURCE_URL}/category_backgrounds/${elem.toLowerCase()}.jpg` })
+        }
+
+
+        return res.json({ stories, categoryInfo });
     } catch (error: any) {
         logger.error(`${funcName} Error: ${error.message}`);
         return res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });

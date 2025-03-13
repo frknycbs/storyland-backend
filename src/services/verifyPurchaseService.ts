@@ -9,6 +9,8 @@ export const verifyPurchaseService = async (receipt: GooglePlayVerifyPurchaseReq
     const funcName = "[VERIFY-PURCHASE-SERVICE] ";
     try {
         logger.info(`${funcName} Receipt: ${JSON.stringify(receipt, null, 4)}`);
+        if(receipt.productId !== "premium")
+            throw("Wrong productId")
 
         // First, we check DB even though it is supposed to be a new receipt so we don't really expect to find it
         const doc: GooglePlayPurchaseReceiptDB | null = await GooglePlayPurchaseReceiptModel.findById({ _id: receipt.purchaseToken});

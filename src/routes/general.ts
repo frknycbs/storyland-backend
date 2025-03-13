@@ -16,7 +16,7 @@ const router = Router();
 router.get('/category/getCategoryInfo', getCategoryInfo)
 router.get('/health', health);
 router.post('/purchase/verifyPurchase', verifyPurchase)
-router.post('/purchase/verifyAvailablePurchases', verifyAvailablePurchases)
+// router.post('/purchase/verifyAvailablePurchases', verifyAvailablePurchases)
 router.post('/purchase/revokePurchase', revokePurchase)
 // router.post('/story/addStory', addStoryController);
 
