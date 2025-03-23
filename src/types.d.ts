@@ -76,4 +76,4 @@ export interface GooglePlayPurchaseReceiptDB {
     orderId: string;
 }
 
-export type Category = 'animals' | 'space' | 'nature' | 'cars'
+export type Category = 'animals' | 'space' | 'nature' | 'vehicles' | 'toys'
