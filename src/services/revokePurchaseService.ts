@@ -32,7 +32,7 @@ export const revokePurchaseService = async (packageName: string, orderId: string
         })
 
         // Log the purchase details
-        logger.info(`${funcName} Purchase Revocation Response: `, response.status);
+        logger.info(`${funcName} Purchase Revocation Response: ${response.status}`, );
 
        
         return true

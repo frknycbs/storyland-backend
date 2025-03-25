@@ -31,7 +31,7 @@ const revokePurchaseService = async (packageName, orderId) => {
             revoke: true
         });
         // Log the purchase details
-        logger_1.default.info(`${funcName} Purchase Revocation Response: `, response.status);
+        logger_1.default.info(`${funcName} Purchase Revocation Response: ${response.status}`);
         return true;
     }
     catch (error) {
